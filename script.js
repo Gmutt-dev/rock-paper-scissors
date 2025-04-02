@@ -12,34 +12,46 @@ function getHumanChoice() {
     return prompt("Please enter your choice (rock/paper/scissors)");
 }
 
-//declare the players' score initializing with 0
-let computerScore = 0;
-let humanScore = 0;
+//get the computer and user's choices // not needed anymore
+// const humanSelection = getHumanChoice();
+// const computerSelection = getComputerChoice();
 
-//get the computer and user's choices
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
 
-//logic to play a single round
-function playRound(humanChoice, computerChoice) {
+function playGame() {
+    //declare the players' score initializing with 0
+    let computerScore = 0;
+    let humanScore = 0;
     
-    humanChoice = humanChoice.toLowerCase(); //human's choice to lowercase for case insensitivity of user input
-    
-    // Determine if it's a draw and return msg
-    if (humanChoice == computerChoice) {
-        return "It's a draw!" }
-    // else determine if user wins with success message returned
-    else if ((humanChoice == "rock" && computerChoice == "scissors") || (humanChoice == "paper" && computerChoice == 'rock') || (humanChoice =="scissors" && computerChoice == "paper")) {
-        humanScore = humanScore++;
-        return `You win ${humanChoice} beats ${computerChoice}`; }
-    //else user loses with failure message returned
-    else {
-        computerScore = computerScore++;
-        return `You lose! ${computerChoice} beats ${humanChoice}`;
+    //logic to play a single round
+    function playRound(humanChoice, computerChoice) {
+        
+        humanChoice = humanChoice.toLowerCase(); //human's choice to lowercase for case insensitivity of user input
+        
+        // Determine if it's a draw and return msg
+        if (humanChoice == computerChoice) {
+            console.log("It's a draw!")
+        }
+        // else determine if user wins with success message returned
+        else if ((humanChoice == "rock" && computerChoice == "scissors") || (humanChoice == "paper" && computerChoice == 'rock') || (humanChoice =="scissors" && computerChoice == "paper")) {
+            humanScore++;
+            console.log(`You win ${humanChoice} beats ${computerChoice}`);
+        }
+        //else user loses with failure message returned
+        else {
+            computerScore++;
+            console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+        }   
+    }
+    // Play game 5 times
+    for (let i=0; i<5; i++) {
+        playRound(getHumanChoice(), getComputerChoice());
     }
 
+    // Return text of who won
+    if (humanScore == computerScore) {return "The game is a draw!";}
+    else if (humanScore > computerScore) {return "The game winner is the user";}
+    else return "The game winner is the computer";
+
 }
-
-
-
-console.log(playRound(humanSelection, computerSelection));
+// Output the game winner
+console.log(playGame());
